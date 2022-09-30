@@ -8,6 +8,8 @@
     "export": "next export"
   },
   "dependencies": {
+    "@actions/core": "1.10.0",
+    "@actions/github": "^5.1.0",
     "cypress": "^10.0.3",
     "next": "^12.1.5",
     "react": "^18.0.0",
