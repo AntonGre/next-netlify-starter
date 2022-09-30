@@ -18,7 +18,7 @@ jobs:
           node-version: 14.16.1
 
       - name: "Update env to netlify"
+        if: contains(github.event.pull_request.labels.*.name, 'split-test')
         run: node ./.github/scripts/environments.js
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          GITHUB_LABELS: ${{ github.event.pull_request.labels }}
