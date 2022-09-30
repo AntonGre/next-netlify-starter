@@ -1,0 +1,18 @@
+name: Netlify variables
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.16.1
+
+      - name: "Create env file"
+        run: node common/scripts/split-run.js ${{ secrets.NETLIFY_AUTH_TOKEN }} ${{ github.event.inputs.site_id }}
