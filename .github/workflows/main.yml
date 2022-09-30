@@ -5,7 +5,7 @@ on:
     types: [labeled]
 
 jobs:
-  build:
+  setup-split-test:
     environment: test
     runs-on: ubuntu-latest
 
