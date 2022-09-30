@@ -15,9 +15,9 @@ jobs:
           node-version: 14.16.1
 
       - name: create env file
-      run: |
-        touch .env
-        echo NETLIFY_AUTH_TOKEN=${{ secrets.NETLIFY_AUTH_TOKEN }} >> .env
+        run: |
+          touch .env
+          echo NETLIFY_AUTH_TOKEN=${{ secrets.NETLIFY_AUTH_TOKEN }} >> .env
 
       - name: "Create env file"
         run: node ./.github/scripts/environments.js ${{ secrets.NETLIFY_AUTH_TOKEN }} ${{ github.event.inputs.site_id }}
