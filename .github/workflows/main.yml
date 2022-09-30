@@ -15,7 +15,8 @@ jobs:
         with:
           node-version: 14.16.1
 
-      - name: "Create env file"
-        run: node ./.github/scripts/environments.js ${{ secrets.NETLIFY_AUTH_TOKEN }} ${{ github.event.inputs.site_id }}
+      - name: "Update env to netlify"
+        run: node ./.github/scripts/environments.js
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          GITHUB_LABELS: ${{ github.context.payload.pull_request.labels }}
