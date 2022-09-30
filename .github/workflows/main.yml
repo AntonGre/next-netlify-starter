@@ -18,7 +18,7 @@ jobs:
           node-version: 14.16.1
 
       - name: install netlify cli
-        uses: npm install netlify-cli -g
+        run: npm install netlify-cli -g
 
       - name: "Update env to netlify"
         if: contains(github.event.pull_request.labels.*.name, 'split-test')
