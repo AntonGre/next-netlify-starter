@@ -13,7 +13,8 @@ const exec = util.promisify(require("child_process").exec);
 
   // set branch specific to env names
   for (let [key, value] of Object.entries(netEnvs)) {
-    await exec(`netlify env:set ${key} '${value}' --context branch`);
+    console.log("asd");
+    await exec(`netlify env:set ${key} '${value}' --context split-test-branch`);
   }
 })()
   .then(() => {
