@@ -5,8 +5,8 @@ const exec = util.promisify(require("child_process").exec);
 
 const { BRANCH, SITE_ID } = process.env;
 
-if (!BRANCH || !SITE_ID || !NETLIFY_AUTH_TOKEN) {
-  throw "Missing env variable: BRANCH, SITE_ID or NETLIFY_AUTH_TOKEN";
+if (!BRANCH || !SITE_ID) {
+  throw "Missing env variable: BRANCH, SITE_ID";
 }
 
 (async () => {
