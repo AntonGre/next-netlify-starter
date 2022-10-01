@@ -5,6 +5,10 @@ const exec = util.promisify(require("child_process").exec);
 
 const { BRANCH, SITE_ID } = process.env;
 
+if (!BRANCH || !SITE_ID || !NETLIFY_AUTH_TOKEN) {
+  throw "Missing env variable: BRANCH, SITE_ID or NETLIFY_AUTH_TOKEN";
+}
+
 (async () => {
   await exec(`netlify link --id ${SITE_ID}`);
 
@@ -14,6 +18,7 @@ const { BRANCH, SITE_ID } = process.env;
   const productEnvs = JSON.parse(stdout);
 
   // set branch specific env
+  console.log(`Adding ${Object.keys(productEnvs).length} envs...`);
   for (let [key, value] of Object.entries(productEnvs)) {
     await exec(`netlify env:set ${key} '${value}' --context '${BRANCH}'`);
   }

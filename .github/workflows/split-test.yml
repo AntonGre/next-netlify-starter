@@ -1,0 +1,52 @@
+name: Netlify variables
+
+on:
+  pull_request:
+    types: [labeled, closed]
+
+jobs:
+  setup split-test:
+    if: contains(github.event.pull_request.labels.*.name, 'split-test') && github.event.pull_request.state != 'closed'
+    environment: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.16.1
+
+      - name: install netlify cli
+        run: npm install netlify-cli -g --loglevel=error
+
+      - name: "Add branch specific env on netlify"
+        run: node ./.github/scripts/set-branch-env.js
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          BRANCH: ${{ github.head_ref }}
+          SITE_ID: 08a94377-dc9d-4a7e-a460-d465edb91e12
+
+  close-split-test:
+    if: github.event.action == 'closed'
+    environment: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.16.1
+
+      - name: install netlify cli
+        run: npm install netlify-cli -g --loglevel=error
+
+      - name: "Remove branch specific env netlify"
+        if: github.event.action == 'closed'
+        run: node ./.github/scripts/environments.js
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          BRANCH: ${{ github.head_ref }}
+          SITE_ID: 08a94377-dc9d-4a7e-a460-d465edb91e12
