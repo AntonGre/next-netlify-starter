@@ -5,7 +5,7 @@ on:
     types: [labeled, closed]
 
 jobs:
-  setup split-test:
+  setup-split-test:
     if: contains(github.event.pull_request.labels.*.name, 'split-test') && github.event.pull_request.state != 'closed'
     environment: test
     runs-on: ubuntu-latest
