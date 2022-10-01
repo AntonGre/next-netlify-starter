@@ -3,11 +3,10 @@
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
 
-const { BRANCH, SITEID } = process.env;
+const { BRANCH, SITE_ID } = process.env;
 
 (async () => {
-  await exec(`netlify link --id ${SITEID}`);
-  console.log(process.env.BRANCH);
+  await exec(`netlify link --id ${SITE_ID}`);
 
   const { stdout } = await exec(
     "netlify env:list --context production  --json"
