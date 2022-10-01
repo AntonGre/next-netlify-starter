@@ -45,7 +45,7 @@ jobs:
 
       - name: "Remove branch specific env netlify"
         if: github.event.action == 'closed'
-        run: node ./.github/scripts/environments.js
+        run: node ./.github/scripts/remove-branch-env.js
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           BRANCH: ${{ github.head_ref }}
