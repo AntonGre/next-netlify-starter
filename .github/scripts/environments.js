@@ -3,18 +3,20 @@
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
 
+const { BRANCH, SITEID } = process.env;
+
 (async () => {
-  await exec("netlify link --id '08a94377-dc9d-4a7e-a460-d465edb91e12'");
+  await exec(`netlify link --id ${SITEID}`);
+  console.log(process.env.BRANCH);
+
   const { stdout } = await exec(
     "netlify env:list --context production  --json"
   );
+  const productEnvs = JSON.parse(stdout);
 
-  const netEnvs = JSON.parse(stdout);
-
-  // set branch specific to env names
-  for (let [key, value] of Object.entries(netEnvs)) {
-    console.log("asd");
-    await exec(`netlify env:set ${key} '${value}' --context split-test-branch`);
+  // set branch specific env
+  for (let [key, value] of Object.entries(productEnvs)) {
+    await exec(`netlify env:set ${key} '${value}' --context '${BRANCH}'`);
   }
 })()
   .then(() => {
