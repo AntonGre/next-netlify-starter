@@ -62,5 +62,5 @@ if (!BRANCH || !SITE_ID) {
   })
   .catch((e) => {
     console.error(e);
-    throw e;
+    return -1;
   });
