@@ -19,9 +19,9 @@ jobs:
           node-version: 14.16.1
 
       - name: install netlify cli
-        run: npm install netlify-cli -g --loglevel=error
+        run: npm install netlify-cli@12.0.0 -g --loglevel=error
 
-      - name: "Add branch specific env on netlify"
+      - name: "Setup script"
         run: node ./.github/scripts/set-branch-env.js
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
@@ -41,9 +41,9 @@ jobs:
           node-version: 14.16.1
 
       - name: install netlify cli
-        run: npm install netlify-cli -g --loglevel=error
+        run: npm install netlify-cli@12.0.0 -g --loglevel=error
 
-      - name: "Remove branch specific env netlify"
+      - name: "Cleanup script"
         if: github.event.action == 'closed'
         run: node ./.github/scripts/remove-branch-env.js
         env:
