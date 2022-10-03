@@ -5,7 +5,7 @@ on:
     types: [labeled, closed]
 
 jobs:
-  setup-split-test:
+  setup:
     if: contains(github.event.pull_request.labels.*.name, 'split-test') && github.event.pull_request.state != 'closed'
     environment: test
     runs-on: ubuntu-latest
@@ -28,7 +28,7 @@ jobs:
           BRANCH: ${{ github.head_ref }}
           SITE_ID: 08a94377-dc9d-4a7e-a460-d465edb91e12
 
-  close-split-test:
+  close:
     if: github.event.action == 'closed'
     environment: test
     runs-on: ubuntu-latest
