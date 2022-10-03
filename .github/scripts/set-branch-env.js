@@ -18,7 +18,9 @@ if (!BRANCH || !SITE_ID) {
   const productEnvs = JSON.parse(stdout);
 
   // set production env to branch specific env
-  console.log(`Adding ${Object.keys(productEnvs).length} envs...`);
+  console.log(
+    `Adding production  ${Object.keys(productEnvs).length} envs to branch...`
+  );
   for (let [key, value] of Object.entries(productEnvs)) {
     await exec(`netlify env:set ${key} '${value}' --context '${BRANCH}'`);
   }
@@ -26,19 +28,18 @@ if (!BRANCH || !SITE_ID) {
   const siteResponse = await exec(
     `netlify api getSite --data '${JSON.stringify({ siteId: SITE_ID })}' --json`
   );
-
   const siteData = JSON.parse(siteResponse.stdout);
+  const allowedBranches = siteData.build_settings.allowed_branches;
 
   // add branch to build settings
-  if (!siteData.build_settings.allowed_branches.contains(BRANCH)) {
+  if (allowedBranches.indexOf(BRANCH) === -1) {
+    console.log("Adding to allowed branches...");
     await exec(
       `netlify api updateSite --data '${JSON.stringify({
         siteId: SITE_ID,
         body: {
           build_settings: {
-            allowed_branches: siteData.build_settings.allowed_branches.concat([
-              BRANCH,
-            ]),
+            allowed_branches: allowedBranches.concat([BRANCH]),
           },
         },
       })}'`
@@ -46,6 +47,7 @@ if (!BRANCH || !SITE_ID) {
   }
 
   // Branch deploy
+  console.log("creating branch deploy");
   await exec(
     `netlify api createSiteDeploy --data '${JSON.stringify({
       siteId: SITE_ID,
@@ -60,5 +62,5 @@ if (!BRANCH || !SITE_ID) {
   })
   .catch((e) => {
     console.error(e);
-    return -1;
+    throw e;
   });

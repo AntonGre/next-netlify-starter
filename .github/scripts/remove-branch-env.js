@@ -28,8 +28,9 @@ if (!BRANCH || !SITE_ID) {
   const allowedBranches = siteData.build_settings.allowed_branches;
 
   // remove branch to build settings
-  if (allowedBranches.contains(BRANCH)) {
+  if (allowedBranches.indexOf(BRANCH) > -1) {
     allowedBranches.splice(allowedBranches.indexOf(BRANCH), 1);
+    console.log("Removing from allowed branches...");
     await exec(
       `netlify api updateSite --data '${JSON.stringify({
         siteId: SITE_ID,
@@ -47,5 +48,5 @@ if (!BRANCH || !SITE_ID) {
   })
   .catch((e) => {
     console.error(e);
-    return -1;
+    throw e;
   });
