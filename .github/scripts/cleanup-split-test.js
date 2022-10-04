@@ -48,5 +48,5 @@ if (!BRANCH || !SITE_ID) {
   })
   .catch((e) => {
     console.error(e);
-    throw e;
+    process.exitCode = -1;
   });
