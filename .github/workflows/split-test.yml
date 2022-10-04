@@ -22,7 +22,7 @@ jobs:
         run: npm install netlify-cli@12.0.0 -g --loglevel=error
 
       - name: "Setup script"
-        run: node ./.github/scripts/set-branch-env.js
+        run: node ./.github/scripts/setup-split-test.js
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           BRANCH: ${{ github.head_ref }}

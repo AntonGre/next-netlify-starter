@@ -5,6 +5,8 @@ const exec = util.promisify(require("child_process").exec);
 
 const { BRANCH, SITE_ID } = process.env;
 
+console.log(process.env);
+
 if (!BRANCH || !SITE_ID) {
   throw "Missing env variable: BRANCH, SITE_ID";
 }
