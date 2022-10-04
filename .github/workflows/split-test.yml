@@ -26,7 +26,7 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           BRANCH: ${{ github.head_ref }}
-          SITE_ID: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          SITE_ID: ${{ secrets.SITE_ID }}
 
   cleanup:
     if: github.event.action == 'closed'
