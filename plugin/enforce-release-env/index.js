@@ -1,3 +1,6 @@
+const util = require("util");
+const exec = util.promisify(require("child_process").exec);
+
 function setEnvValue(key, value) {
   process.env[key] = value;
 }
@@ -14,7 +17,7 @@ module.exports = {
     //   return;
     // }
 
-    const as = await run.command("netlify");
+    const as = await exec("netlify");
     console.log(as);
 
     const { stdout } = await run.command(
