@@ -1,5 +1,5 @@
 {
-  "name": "enforce-release-env",
+  "name": "enforce-branch-review-env",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,6 +9,6 @@
   "dependencies": {
     "netlify-cli": "12.0.7"
   },
-  "author": "",
+  "author": "agr",
   "license": "ISC"
 }

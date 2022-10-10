@@ -1,5 +1,5 @@
 [[plugins]]
-  package = "/plugin/enforce-release-env"
+  package = "enforce-branch-review-env"
 
 [build]
   command = "npm run build"
