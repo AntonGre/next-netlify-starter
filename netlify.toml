@@ -1,5 +1,5 @@
 [[plugins]]
-  package = "../../../common/plugin/enforce-release-env"
+  package = "/plugin/enforce-release-env"
 
 [build]
   command = "npm run build"
@@ -7,4 +7,3 @@
 
 [[plugins]]
   package = "netlify-plugin-cypress"
-  
