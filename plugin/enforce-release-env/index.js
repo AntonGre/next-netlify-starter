@@ -14,6 +14,9 @@ module.exports = {
     //   return;
     // }
 
+    const as = await run.command("netlify");
+    console.log(as);
+
     const { stdout } = await run.command(
       "netlify env:list --context deploy-preview --json"
     );
