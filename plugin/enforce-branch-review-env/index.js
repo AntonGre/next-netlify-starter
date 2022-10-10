@@ -10,10 +10,10 @@ module.exports = {
     const { CONTEXT } = process.env;
     const { SITE_ID, IS_LOCAL } = constants;
 
-    if (CONTEXT !== "deploy-preview") {
-      console.log("Existing... Context is not deploy-preview...");
-      return;
-    }
+    // if (CONTEXT !== "deploy-preview") {
+    //   console.log("Existing... Context is not deploy-preview...");
+    //   return;
+    // }
 
     await run.command(`netlify link --id ${SITE_ID}`);
 
